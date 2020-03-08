@@ -1,7 +1,11 @@
-login:
-  - test_login_1
-#  - test_login_2
-userMannager:
-  - test_user_1
-#  - test_user_2
+#login:
+#  - test_login_1
+##  - test_login_2
+#userMannager:
+#  - test_user_1
+##  - test_user_2
+examTask:
+  - test_examtask_1
+educationStat:
+  - test_educationstat_1
 

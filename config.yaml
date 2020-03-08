@@ -1,3 +1,7 @@
 HTTP:
-  BASE_URL: http://127.0.0.1
-  PORT: 5000
+  BASE_URL: http://www.zhonshian.com
+  PORT: 80
+LOG:
+  #DEBUG INFO WARN ERROR
+  CONSOLE_OUT: WARN
+  FILE_OUT: INFO

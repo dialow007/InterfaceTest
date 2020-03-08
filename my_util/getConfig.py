@@ -7,6 +7,10 @@ conf_file = os.path.join(path, 'config.yaml')
 
 
 def get_conf(key):
+    """
+    @param key:
+    @return:
+    """
     data = read_yaml()
     return data[key]
 
@@ -18,4 +22,4 @@ def read_yaml():
 
 
 if __name__=="__main__":
-    print(get_conf('HTTP'))
+    print(get_conf('LOG'))

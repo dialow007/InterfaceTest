@@ -25,6 +25,11 @@ class ExcelHelper(object):
 
     @staticmethod
     def get_excel_list(filename, sheet_name):
+        """
+        @param filename: 测试用例表格文件名
+        @param sheet_name:
+        @return:
+        """
         cls = []
         file = os.path.join(path, "test_data",  filename)
         data = xlrd.open_workbook(file)
