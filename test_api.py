@@ -11,8 +11,9 @@ def login():
     user = data['user']
     pwd = data['pwd']
     if user == 'admin' and pwd == '123456':
-        res['code'] = '10000'
+        res['code'] = 10000
         res['msg'] = '验证通过'
+        res['data'] = {'uername':'管理员'}
     elif user == '':
         res['code'] = '10001'
         res['msg'] = '用户名为空'
@@ -30,7 +31,6 @@ def query_user():
     res = dict()
     user_id = request.args.get('uid')
     print(f"{user_id=}")
-    # user_id = data['uid']
     if user_id:
         res['code'] = '10000'
         res['msg'] = f'返回用户id为{user_id}的数据'
@@ -38,7 +38,6 @@ def query_user():
         res['code'] = '10001'
         res['msg'] = '参数不正确'
     return jsonify(res)
-
 
 
 @app.route('/user/insert', methods=['post'])

@@ -4,8 +4,11 @@
 #userMannager:
 #  - test_user_1
 ##  - test_user_2
-examTask:
-  - test_examtask_1
-educationStat:
-  - test_educationstat_1
+#examTask:
+#  - test_examtask_1
+#educationStat:
+#  - test_educationstat_1
+
+ERP:
+  - test_erpMonitorManager_1
 
