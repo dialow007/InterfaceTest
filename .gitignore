@@ -108,4 +108,4 @@ venv.bak/
 /csvData/cmSoonregis.csv
 .idea/
 *.html
-
+result/

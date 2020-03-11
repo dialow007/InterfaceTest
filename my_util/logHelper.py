@@ -1,7 +1,6 @@
 import logging
 import os
 import getWorkDir
-from logging.handlers import TimedRotatingFileHandler
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 from my_util import getConfig
 
@@ -17,6 +16,7 @@ class Logger(object):
         logging.root.setLevel(logging.NOTSET)
         self.log_file_name = os.path.join(log_path, 'log.log')
         self.backup_count = 5
+        self.maxBytes = 1024 * 1024 * 10
         self.console_output_level = log_level.get('CONSOLE_OUT')
         self.file_output_level = log_level.get('FILE_OUT')
         self.formatter = logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s')
@@ -28,8 +28,8 @@ class Logger(object):
             console_handler.setFormatter(self.formatter)
             console_handler.setLevel(self.console_output_level)
             self.logger.addHandler(console_handler)
-            file_handler = TimedRotatingFileHandler(filename=self.log_file_name, when='D', backupCount=self.backup_count,
-                                                    delay=True, encoding='utf-8')
+            file_handler = ConcurrentRotatingFileHandler(filename=self.log_file_name,  maxBytes=self.maxBytes,
+                                                     backupCount=self.backup_count, encoding="utf-8")
             file_handler.setFormatter(self.formatter)
             file_handler.setLevel(self.file_output_level)
             self.logger.addHandler(file_handler)

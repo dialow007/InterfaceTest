@@ -3,5 +3,10 @@ HTTP:
   PORT: 80
 LOG:
   #DEBUG INFO WARN ERROR
-  CONSOLE_OUT: WARN
+  CONSOLE_OUT: INFO
   FILE_OUT: INFO
+#用户登录erp获取cookie
+ERP_COOKIE:
+  URL: http://www.zhonshian.com
+  USER: test01
+  PWD: '000000'

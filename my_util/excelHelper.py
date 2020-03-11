@@ -31,15 +31,17 @@ class ExcelHelper(object):
         @return:
         """
         cls = []
+        skip_col = 9 #是否执行的列号
         file = os.path.join(path, "test_data",  filename)
         data = xlrd.open_workbook(file)
         sheet = data.sheet_by_name(sheet_name)
         nrows = sheet.nrows
         for i in range(1, nrows):
-            cls.append(sheet.row_values(i))
+            if sheet.row_values(i)[skip_col] == 'Y' or sheet.row_values(i)[skip_col] == '':
+                cls.append(sheet.row_values(i, end_colx=skip_col))
         return cls
 
 
 if __name__=="__main__":
-    res = ExcelHelper.get_excel_list('cese.xlsx','login')
+    res = ExcelHelper.get_excel_list('erp_project_case.xlsx', 'login')
     print(res)

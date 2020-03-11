@@ -3,14 +3,16 @@ import getWorkDir
 import os
 from BeautifulReport import BeautifulReport
 import yaml
+import arrow
 
 path = getWorkDir.get_base_dir()
 test_case_dir = os.path.join(path, 'test_case')
 case_list_file = os.path.join(path, 'case_list.yaml')
-###测试报告
+"""测试报告配置"""
 report_dir = os.path.join(path, 'result')
-report_name = 'report.html'
-report_des = '测试用例描述'
+report_date = arrow.now().format("YYYYMMDD")
+report_name = f'report_{report_date}'
+report_des = '测试任务描述'
 
 
 class DoWork(object):
