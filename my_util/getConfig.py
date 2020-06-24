@@ -16,10 +16,6 @@ def get_conf(key):
 
 
 def read_yaml():
-    with open(conf_file, 'r') as file:
+    with open(conf_file, 'r',encoding='utf-8') as file:
         data = yaml.safe_load(file)
     return data
-
-
-if __name__=="__main__":
-    print(get_conf('LOG'))

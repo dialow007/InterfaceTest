@@ -4,9 +4,12 @@ import os
 from BeautifulReport import BeautifulReport
 import yaml
 import arrow
-from my_util import emailHelper, htmlTemp, getConfig
+from my_util import emailHelper, htmlTemp, getConfig, setHeaders, logHelper
 from shutil import copyfile
 
+logger = logHelper.Logger(__name__).get_logger()
+"""生成headers临时文件"""
+is_login = setHeaders.set_tmp_headers()
 """获取配置信息"""
 path = getWorkDir.get_base_dir()
 test_case_dir = os.path.join(path, 'test_case')
@@ -19,7 +22,7 @@ report_dir = os.path.join(path, 'result')
 report_date = arrow.now().format("YYYYMMDD")
 report_name = f'report_{report_date}.html'
 report_des = '测试任务描述'
-report_file_path = os.path.join(report_dir,report_name)
+report_file_path = os.path.join(report_dir, report_name)
 
 
 class DoWork(object):
@@ -37,6 +40,7 @@ class DoWork(object):
     def get_case_suite():
         test_suite = unittest.TestSuite()
         case_item = DoWork.get_case_yaml()
+        logger.info(f"执行的测试用例：{case_item}")
         for case_name in case_item:
             discover = unittest.defaultTestLoader.discover(test_case_dir, pattern=case_name + '.py')
             test_suite.addTest(discover)
@@ -59,7 +63,7 @@ class DoWork(object):
         html_data = DoWork.get_html_report_info()
         data = str(htmlTemp.HtmlReport(html_data))
         header_name = "接口自动化测试报告"
-        email_data = dict(data=data,header_name=header_name,email_conf=email_conf)
+        email_data = dict(data=data, header_name=header_name, email_conf=email_conf)
         return email_data
 
     @classmethod
@@ -67,9 +71,12 @@ class DoWork(object):
         test_suite = cls.get_case_suite()
         BeautifulReport(test_suite).report(description=report_des, filename=report_name, report_dir=report_dir)
         cls.copy_html_report()
-        email_data = cls.get_send_email_info()
-        emailHelper.send_mail(email_data)
+        # email_data = cls.get_send_email_info()
+        # emailHelper.send_mail(email_data)
 
 
 if __name__ == "__main__":
-    DoWork.run()
+    if is_login:
+        DoWork.run()
+    else:
+        logger.error("登录失败，测试停止")

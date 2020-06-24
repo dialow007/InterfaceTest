@@ -3,9 +3,15 @@ from email.mime.text import MIMEText
 from email.header import Header
 from my_util import getConfig, logHelper,htmlTemp
 
-email_conf = getConfig.get_conf('EMAIL')
+# email_conf = getConfig.get_conf('EMAIL')
 logger = logHelper.Logger(__name__).get_logger()
 
+email_conf = {
+      'SMTP_SERVER': 'smtp.qq.com',
+      'SENDER': '314785857@qq.com',
+      'PASSWORD': 'fclxoizwosnpbiea',
+      'RECEIVER': ['dialow@aliyun.com','lhb@hangzhouyq.com']
+}
 
 def send_mail(email_data):
     data = email_data.get('data')
