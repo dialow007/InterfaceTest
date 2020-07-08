@@ -2,6 +2,7 @@ import requests
 import json
 from my_util import logHelper
 
+
 logger = logHelper.Logger(__name__).get_logger()
 
 
@@ -19,11 +20,10 @@ class Request(object):
             if method == 'get':
                 result = self.requests_get(url, headers, data)
             elif method == 'post':
-                # logger.info(url, headers, data)
                 result = self.requests_post(url, headers, data.encode(), cookies)
             else:
-                logger.error(f"请求的method不正确：{method=}")
-            logger.info(f"请求url:{url}##########返回结果：{result.text}")
+                logger.error(f"请求的method不正确：{method}")
+            logger.info(f"请求url:{url}\n请求参数：{data}\n返回结果：{result.text}")
         except BaseException as e:
             logger.error(f"发生错误{e}")
         finally:

@@ -1,13 +1,14 @@
 import logging
 import os
-import getWorkDir
 from concurrent_log_handler import ConcurrentRotatingFileHandler
+import get_work_dir
 from my_util import getConfig
 
 
-path = getWorkDir.get_base_dir()
+path = get_work_dir.get_base_dir()
 log_path = os.path.join(path, 'log')
-log_level = getConfig.get_conf('LOG')
+config_file = os.path.join(path, 'config.yaml')
+conf = getConfig.GetConfig(config_file).get_conf("LOG")
 
 
 class Logger(object):
@@ -17,8 +18,8 @@ class Logger(object):
         self.log_file_name = os.path.join(log_path, 'log.log')
         self.backup_count = 5
         self.maxBytes = 1024 * 1024 * 10
-        self.console_output_level = log_level.get('CONSOLE_OUT')
-        self.file_output_level = log_level.get('FILE_OUT')
+        self.console_output_level = conf.get('CONSOLE_OUT')
+        self.file_output_level = conf.get('FILE_OUT')
         self.formatter = logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s')
 
     def get_logger(self):

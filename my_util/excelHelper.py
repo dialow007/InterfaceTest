@@ -1,10 +1,8 @@
-import os
 import xlrd
-import getWorkDir
-import pandas as pd
-import numpy as np
+import os
+import get_work_dir
 
-path = getWorkDir.get_base_dir()
+path = get_work_dir.get_base_dir()
 
 
 class ExcelHelper(object):
@@ -33,7 +31,7 @@ class ExcelHelper(object):
         @return:列表返回
         """
         cls = []
-        skip_col = 9 #是否执行的列号
+        skip_col = 9  # 是否执行的列号
         file = os.path.join(path, "test_data",  filename)
         data = xlrd.open_workbook(file)
         sheet = data.sheet_by_name(sheet_name)
@@ -43,21 +41,19 @@ class ExcelHelper(object):
                 cls.append(sheet.row_values(i, end_colx=skip_col))
         return cls
 
-    @staticmethod
-    def get_excel_pd(filename, sheet_name):
-        """
-        @param filename:测试用例文件名
-        @param sheet_name:测试用例工作表名
-        @return:列表返回
-        """
-        skip_key = '是否执行'
-        file = os.path.join(path, "test_data", filename)
-        data = pd.read_excel(io=file, sheet_name=sheet_name, keep_default_na=False, converters={'code': str})
-        data_df = data[data[skip_key].isin(['Y', ''])].drop(columns=skip_key, axis=1)
-        cls = np.array(data_df)
-        return cls
+    # @staticmethod
+    # def get_excel_pd(filename, sheet_name):
+    #     """
+    #     @param filename:测试用例文件名
+    #     @param sheet_name:测试用例工作表名
+    #     @return:列表返回
+    #     """
+    #     skip_key = '是否执行'
+    #     file = os.path.join(path, "test_data", filename)
+    #     data = pd.read_excel(io=file, sheet_name=sheet_name, keep_default_na=False, converters={'code': str})
+    #     data_df = data[data[skip_key].isin(['Y', ''])].drop(columns=skip_key, axis=1)
+    #     cls = np.array(data_df)
+    #     return cls
 
 if __name__=="__main__":
-    file1 = r'..\test_data\erp_project_case.xlsx'
-    res = ExcelHelper.get_excel_pd(file1, 'MonitorManager')
-    print(res)
+    pass

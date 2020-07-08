@@ -1,3 +1,8 @@
+# 需要执行的测试用例脚本文件，不需要执行的就注释即可
 zsa_cloud:
   - test_pc_party_1
+  - test_zzd_party_1
+erp:
+  - erp_app
+
 
